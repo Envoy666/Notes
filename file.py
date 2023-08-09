@@ -1,22 +1,25 @@
-import os
+from pathlib import Path
 
 ENCODING = "utf-8"
 
 
-def ensure_file_exists(name):
-    if not os.path.exists(name):
-        with open(name, "w", encoding="utf-8") as _:
-            pass
+def ensure_path_exists(dir_name: str, file_name: str) -> bool:
+    Path(dir_name).mkdir(parents=True, exist_ok=True)
+    path = Path(dir_name, file_name)
+    if not path.exists():
+        path.touch()
+        return True
+    if not path.is_file():
+        return False
 
 
-def read_file(name: str) -> str:
-    if os.path.exists(name):
-        with open(name, "r", encoding=ENCODING) as file:
-            return file.read()
+def read_file(dir_name: str, file_name: str) -> str:
+    path = Path(dir_name, file_name)
+    if path.exists():
+        return path.read_text(encoding=ENCODING)
     return ""
 
 
-def write_file(name: str, data: str):
-    with open(name, "w", encoding=ENCODING) as file:
-        file.write(data)
-        file.close()
+def write_file(dir_name: str, file_name: str, data: str):
+    path = Path(dir_name, file_name)
+    path.write_text(data, encoding=ENCODING)

@@ -38,10 +38,14 @@ def delete_note():
 
 def export_import():
     text = "test file read/write"
-    filename = "test.json"
-    file.ensure_file_exists(filename)
-    file.write_file(filename, text)
-    red_text = file.read_file(filename)
+    dir_name = "data"
+    file_name = "test.json"
+    if not file.ensure_path_exists(dir_name, file_name):
+        print(f"can't create data file (seems like directory with name \"{file_name}\" exists)")
+        input("Enter anything to continue...")
+        return
+    file.write_file(dir_name, file_name, text)
+    red_text = file.read_file(dir_name, file_name)
 
 
 def main():
