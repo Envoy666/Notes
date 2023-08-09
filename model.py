@@ -35,7 +35,22 @@ class Model:
         self.__last_id += 1
         note.set_id(self.__last_id)
 
-    def get_note(self, note_id: int) -> Note:
-        for note in self.__note_list:
-            if note.get_id() == note_id:
-                return note
+    def get_note_index(self, note_id: int) -> int:
+        for i in range(self.size()):
+            if self.__note_list[i].get_id() == note_id:
+                return i
+        return -1
+
+    def get_note(self, index: int) -> Note | None:
+        if index not in range(self.size()):
+            return None
+        return self.__note_list[index]
+
+    def edit_note(self, index: int, header: str, text: str) -> bool:
+        if index not in range(self.size()):
+            return False
+        note = self.__note_list[index]
+        note.set_header(header)
+        note.set_text(text)
+        note.set_modified(timestamp())
+        return True
