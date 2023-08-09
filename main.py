@@ -37,20 +37,23 @@ def show_note_list(notes: list[Note], list_header):
 
 def show_note():
     clear_terminal()
-    answer = input("Enter note id: ")
-    if not is_number(answer):
-        print(f"Incorrect id - {answer}!")
-        input("Enter anything to continue...")
-        return
-
-    note_id = int(answer)
-    note = model.get_note(note_id)
-    clear_terminal()
-    if note:
-        print(note.as_str())
-    else:
-        print(f"Note with id {note_id} not found")
+    index = get_note_index()
+    if index >= 0:
+        clear_terminal()
+        print(model.get_note(index).as_str())
     input("Enter anything to continue...")
+
+
+def get_note_index() -> int:
+    index = -1
+    answer = input("Enter note id: ")
+    if is_number(answer):
+        index = model.get_note_index(int(answer))
+        if index < 0:
+            print(f"Note with id {answer} not found")
+    else:
+        print(f"Incorrect id - {answer}!")
+    return index
 
 
 def is_number(string: str) -> bool:
@@ -66,8 +69,13 @@ def add_note():
     clear_terminal()
     note_data = input_note_data("Add new note:")
     model.add_note(*note_data)
+    write_file()
+
+
+def write_file():
     file.backup_file(DATA_DIR_NAME, DATA_FILE_NAME)
-    file.write_file(DATA_DIR_NAME, DATA_FILE_NAME, adapter.list_to_json(model.get_note_list()))
+    file.write_file(DATA_DIR_NAME, DATA_FILE_NAME,
+                    adapter.list_to_json(model.get_note_list()))
 
 
 def input_note_data(message):
@@ -98,7 +106,30 @@ def find_note():
 
 
 def edit_note():
-    pass
+    clear_terminal()
+    index = get_note_index()
+    if index >= 0:
+        clear_terminal()
+        note = model.get_note(index)
+        print(note.as_str())
+
+        note_data = input_note_data("\nEnter new values "
+                                    "or empty line to keep old ones:")
+        if note_data[0] or note_data[1]:
+            if not note_data[0]:
+                note_data[0] = note.get_header()
+            elif not note_data[1]:
+                note_data[1] = note.get_text()
+            if model.edit_note(index, *note_data):
+                write_file()
+                clear_terminal()
+                print("Successfully edited!\n")
+                print(model.get_note(index).as_str())
+            else:
+                print("Something went wrong. Note isn't edited")
+        else:
+            print("No changes are made")
+    input("Enter anything to continue...")
 
 
 def delete_note():
