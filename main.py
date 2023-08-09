@@ -5,6 +5,8 @@
 
 from os import system
 
+import file
+
 
 def clear_terminal():
     system("cls")
@@ -35,7 +37,11 @@ def delete_note():
 
 
 def export_import():
-    pass
+    text = "test file read/write"
+    filename = "test.json"
+    file.ensure_file_exists(filename)
+    file.write_file(filename, text)
+    red_text = file.read_file(filename)
 
 
 def main():
