@@ -1,4 +1,10 @@
+import time
+
 from note import Note
+
+
+def timestamp() -> float:
+    return time.time()
 
 
 class Model:
@@ -17,3 +23,14 @@ class Model:
 
     def size(self) -> int:
         return len(self.__note_list)
+
+    def add_note(self, header: str, text: str):
+        note = Note()
+        note.set_header(header)
+        note.set_text(text)
+        _timestamp = timestamp()
+        note.set_created(_timestamp)
+        note.set_modified(_timestamp)
+        self.__note_list.append(note)
+        self.__last_id += 1
+        note.set_id(self.__last_id)

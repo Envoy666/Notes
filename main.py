@@ -27,7 +27,19 @@ def show_note():
 
 
 def add_note():
-    pass
+    clear_terminal()
+    note_data = input_note_data("Add new note:")
+    model.add_note(*note_data)
+    file.backup_file(DATA_DIR_NAME, DATA_FILE_NAME)
+    file.write_file(DATA_DIR_NAME, DATA_FILE_NAME, adapter.list_to_json(model.get_note_list()))
+
+
+def input_note_data(message):
+    if message:
+        print(message)
+    header = input("Enter note header: ")
+    text = input("Enter note text: ")
+    return [header, text]
 
 
 def find_note():
