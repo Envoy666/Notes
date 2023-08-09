@@ -1,1 +1,44 @@
-{}
+[
+    {
+        "id": 1,
+        "header": "hdr",
+        "text": "txt",
+        "created": 1691591272.995634,
+        "modified": 1691591272.995634
+    },
+    {
+        "id": 2,
+        "header": "header",
+        "text": "note text",
+        "created": 1691591409.1873994,
+        "modified": 1691591409.1873994
+    },
+    {
+        "id": 3,
+        "header": "header 3",
+        "text": "text 3",
+        "created": 1691594263.4824224,
+        "modified": 1691594263.4824224
+    },
+    {
+        "id": 4,
+        "header": "note header",
+        "text": "some text",
+        "created": 1691602867.1019568,
+        "modified": 1691602867.1019568
+    },
+    {
+        "id": 5,
+        "header": "hdr4",
+        "text": "txt4",
+        "created": 1691602918.4120069,
+        "modified": 1691602918.4120069
+    },
+    {
+        "id": 6,
+        "header": "something",
+        "text": "something else",
+        "created": 1691603855.3785715,
+        "modified": 1691603855.3785715
+    }
+]
