@@ -7,7 +7,7 @@ def ensure_path_exists(dir_name: str, file_name: str) -> bool:
     Path(dir_name).mkdir(parents=True, exist_ok=True)
     path = Path(dir_name, file_name)
     if not path.exists():
-        path.touch()
+        path.write_text("{}", encoding=ENCODING)
     elif path.is_dir():
         return False
     return True
