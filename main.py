@@ -5,6 +5,11 @@
 
 from os import system
 
+import file
+
+DATA_DIR_NAME = "data"
+DATA_FILE_NAME = "notes.json"
+
 
 def clear_terminal():
     system("cls")
@@ -39,6 +44,11 @@ def export_import():
 
 
 def main():
+    if not file.ensure_path_exists(DATA_DIR_NAME, DATA_FILE_NAME):
+        print(f"can't create data file (seems like directory with name \"{DATA_FILE_NAME}\" exists)")
+        input("Enter anything to exit...")
+        return
+
     while True:
         clear_terminal()
 
