@@ -8,9 +8,9 @@ def ensure_path_exists(dir_name: str, file_name: str) -> bool:
     path = Path(dir_name, file_name)
     if not path.exists():
         path.touch()
-        return True
-    if not path.is_file():
+    elif path.is_dir():
         return False
+    return True
 
 
 def read_file(dir_name: str, file_name: str) -> str:
