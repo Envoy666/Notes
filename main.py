@@ -7,6 +7,7 @@ from os import system
 
 import adapter
 import file
+from filter import FilterModeMap, filter_notes
 from model import Model
 from note import Note
 
@@ -78,7 +79,22 @@ def input_note_data(message):
 
 
 def find_note():
-    pass
+    clear_terminal()
+    print("Select search mode:")
+    fm_map = FilterModeMap.filter_mode_map
+    for key in fm_map.keys():
+        print(f"{key}. {fm_map[key]}")
+    answer = input("or anything different to cancel: ")
+    mode = fm_map.get(answer)
+    if not mode:
+        return
+
+    required = input("Enter value to find: ")
+    if required:
+        note_list = filter_notes(model.get_note_list(), mode, required)
+    else:
+        note_list = []
+    show_note_list(note_list, f"Notes with \"{required}\" in {mode}:")
 
 
 def edit_note():
