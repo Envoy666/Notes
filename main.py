@@ -35,7 +35,30 @@ def show_note_list(notes: list[Note], list_header):
 
 
 def show_note():
-    pass
+    clear_terminal()
+    answer = input("Enter note id: ")
+    if not is_number(answer):
+        print(f"Incorrect id - {answer}!")
+        input("Enter anything to continue...")
+        return
+
+    note_id = int(answer)
+    note = model.get_note(note_id)
+    clear_terminal()
+    if note:
+        print(note.as_str())
+    else:
+        print(f"Note with id {note_id} not found")
+    input("Enter anything to continue...")
+
+
+def is_number(string: str) -> bool:
+    if not string:
+        return False
+    for char in string:
+        if not char.isdigit():
+            return False
+    return True
 
 
 def add_note():
@@ -86,12 +109,13 @@ def main():
         clear_terminal()
 
         size = model.size()
-        if size == 0:
-            entries = "no entries"
-        elif size == 1:
-            entries = "1 entry"
-        else:
-            entries = f"{size} entries"
+        match size:
+            case 0:
+                entries = "no entries"
+            case 1:
+                entries = "1 entry"
+            case _:
+                entries = f"{size} entries"
 
         answer = input(f"Note book ({entries}):\n"
                        "1. Show notes list\n"

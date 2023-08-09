@@ -34,3 +34,8 @@ class Model:
         self.__note_list.append(note)
         self.__last_id += 1
         note.set_id(self.__last_id)
+
+    def get_note(self, note_id: int) -> Note:
+        for note in self.__note_list:
+            if note.get_id() == note_id:
+                return note
