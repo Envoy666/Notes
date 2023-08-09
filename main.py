@@ -5,8 +5,11 @@
 
 from os import system
 
+import adapter
 import file
+from model import Model
 
+model: Model
 DATA_DIR_NAME = "data"
 DATA_FILE_NAME = "notes.json"
 
@@ -44,15 +47,27 @@ def export_import():
 
 
 def main():
+    global model
+
     if not file.ensure_path_exists(DATA_DIR_NAME, DATA_FILE_NAME):
         print(f"can't create data file (seems like directory with name \"{DATA_FILE_NAME}\" exists)")
         input("Enter anything to exit...")
         return
 
+    note_list = adapter.json_to_list(file.read_file(DATA_DIR_NAME, DATA_FILE_NAME))
+    model = Model()
+    model.set_note_list(note_list)
+
     while True:
         clear_terminal()
 
-        entries = "no entries"
+        size = model.size()
+        if size == 0:
+            entries = "no entries"
+        elif size == 1:
+            entries = "1 entry"
+        else:
+            entries = f"{size} entries"
 
         answer = input(f"Note book ({entries}):\n"
                        "1. Show notes list\n"
