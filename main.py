@@ -8,6 +8,7 @@ from os import system
 import adapter
 import file
 from model import Model
+from note import Note
 
 model: Model
 DATA_DIR_NAME = "data"
@@ -19,7 +20,18 @@ def clear_terminal():
 
 
 def show_all():
-    pass
+    show_note_list(model.get_note_list(), "Notes list:")
+
+
+def show_note_list(notes: list[Note], list_header):
+    clear_terminal()
+    print(list_header)
+    if notes:
+        for note in notes:
+            print(note)
+    else:
+        print("no entries")
+    input("Enter anything to continue...")
 
 
 def show_note():
