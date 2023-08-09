@@ -133,7 +133,23 @@ def edit_note():
 
 
 def delete_note():
-    pass
+    clear_terminal()
+    index = get_note_index()
+    if index >= 0:
+        clear_terminal()
+        note = model.get_note(index)
+        print(note.as_str())
+        confirm = input("\nEnter note index to confirm deletion: ")
+        if confirm == str(note.get_id()):
+            if model.delete_node(index):
+                write_file()
+                clear_terminal()
+                print("Successfully deleted!\n")
+            else:
+                print("Something went wrong. Note isn't deleted")
+        else:
+            print("Note won't be deleted")
+    input("Enter anything to continue...")
 
 
 def export_import():

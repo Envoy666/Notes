@@ -54,3 +54,9 @@ class Model:
         note.set_text(text)
         note.set_modified(timestamp())
         return True
+
+    def delete_node(self, index: int) -> bool:
+        if index not in range(self.size()):
+            return False
+        del self.__note_list[index]
+        return True
