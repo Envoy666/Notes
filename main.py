@@ -7,7 +7,7 @@ from os import system
 
 import adapter
 import file
-from filter import FilterModeMap, filter_notes
+from filter import FilterModeMap, filter_notes, convert_required
 from model import Model
 from note import Note
 
@@ -47,22 +47,13 @@ def show_note():
 def get_note_index() -> int:
     index = -1
     answer = input("Enter note id: ")
-    if is_number(answer):
+    if answer.isdigit():
         index = model.get_note_index(int(answer))
         if index < 0:
             print(f"Note with id {answer} not found")
     else:
         print(f"Incorrect id - {answer}!")
     return index
-
-
-def is_number(string: str) -> bool:
-    if not string:
-        return False
-    for char in string:
-        if not char.isdigit():
-            return False
-    return True
 
 
 def add_note():
@@ -97,12 +88,14 @@ def find_note():
     if not mode:
         return
 
-    required = input("Enter value to find: ")
+    answer = input(FilterModeMap.requirements_map[answer])
+    required = convert_required(mode, answer)
     if required:
         note_list = filter_notes(model.get_note_list(), mode, required)
+        show_note_list(note_list, f"Notes with \"{required}\" in {mode}:")
     else:
-        note_list = []
-    show_note_list(note_list, f"Notes with \"{required}\" in {mode}:")
+        print(f"Incorrect required \"{answer}\" for mode \"{mode}\"")
+        input("Enter anything to continue...")
 
 
 def edit_note():

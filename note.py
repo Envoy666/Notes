@@ -47,6 +47,6 @@ class Note:
                 f"Modified: {time.asctime(time.localtime(self.__modified))}")
 
     def __repr__(self):
-        return (f"Note (Id: {self.__note_id},"
-                f" Header: {self.__header},"
-                f" Modified: {time.asctime(time.localtime(self.__modified))})")
+        return (f"Note (Id: {self.__note_id}, "
+                f"Header: {self.__header}, "
+                f"Modified: {time.asctime(time.localtime(self.__modified))})")
