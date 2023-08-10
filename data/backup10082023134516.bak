@@ -28,6 +28,13 @@
         "modified": 1691616330.9390266
     },
     {
+        "id": 6,
+        "header": "something",
+        "text": "something else",
+        "created": 1691603855.3785715,
+        "modified": 1691603855.3785715
+    },
+    {
         "id": 7,
         "header": "some new header",
         "text": "some new text",
@@ -47,12 +54,5 @@
         "text": "it is possible to add restoration from backup, but I am tired",
         "created": 1691664272.8158069,
         "modified": 1691664272.8158069
-    },
-    {
-        "id": 10,
-        "header": "last check",
-        "text": "check one more time whole project",
-        "created": 1691664364.3831477,
-        "modified": 1691664364.3831477
     }
 ]

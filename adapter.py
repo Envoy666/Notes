@@ -1,4 +1,5 @@
 import json
+from json import JSONDecodeError
 
 from note import Note
 
@@ -23,7 +24,11 @@ def list_to_json(note_list: list[Note]) -> str:
 
 
 def json_to_list(data_str: str) -> list[Note]:
-    data = json.loads(data_str)
+    data = []
+    try:
+        data = json.loads(data_str)
+    except JSONDecodeError:
+        pass
     note_list = []
     for item in data:
         note = Note()

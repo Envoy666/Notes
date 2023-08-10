@@ -145,10 +145,6 @@ def delete_note():
     input("Enter anything to continue...")
 
 
-def export_import():
-    pass
-
-
 def main():
     global model
 
@@ -180,8 +176,7 @@ def main():
                        "4. Find a note\n"
                        "5. Edit a note\n"
                        "6. Delete a note\n"
-                       "7. Export/Import\n"
-                       "8. Exit\n")
+                       "7. Exit\n")
         match answer:
             case "1":
                 show_all()
@@ -196,8 +191,6 @@ def main():
             case "6":
                 delete_note()
             case "7":
-                export_import()
-            case "8":
                 return
             case _:
                 print(f"Unknown command - {answer}!")
